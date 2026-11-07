@@ -20,7 +20,7 @@ jobs:
         run: |
           apt-get update
           apt-get install -y --no-install-recommends python3 python3-pip \
-            python3-pycryptodome libpng-dev gettext sox gcc make
+            python3-pycryptodome libpng-dev gettext sox gcc make xxd
           dkp-pacman -Sy --noconfirm --needed ppc-zlib ppc-libpng ppc-mxml \
             ppc-freetype ppc-libmad || true
 
