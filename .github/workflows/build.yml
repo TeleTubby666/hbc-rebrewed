@@ -24,6 +24,13 @@ jobs:
           dkp-pacman -Sy --noconfirm --needed ppc-zlib ppc-libpng ppc-mxml \
             ppc-freetype ppc-libmad || true
 
+      - name: Link brotli if freetype needs it
+        run: |
+          if [ -f /opt/devkitpro/portlibs/ppc/lib/libbrotlidec.a ]; then
+            sed -i 's/^LIBS = mxml freetype /LIBS = mxml freetype brotlidec brotlicommon /' channel/channelapp/Makefile
+          fi
+          grep -n "^LIBS" channel/channelapp/Makefile
+
       - name: Disable LTO (variant nolto)
         if: matrix.variant == 'nolto'
         run: |
