@@ -70,6 +70,9 @@ jobs:
         run: |
           mkdir -p out/apps/hbc-rebrewed-${{ matrix.variant }}
           cp channel/channelapp/channelapp.elf out/apps/hbc-rebrewed-${{ matrix.variant }}/boot.elf
+          printf '<?xml version="1.0" encoding="UTF-8"?>\n<app version="1">\n  <name>HBC Rebrewed (%s)</name>\n  <version>test-%s</version>\n  <short_description>Testbuild %s</short_description>\n</app>\n' \
+            "${{ matrix.variant }}" "$(echo $GITHUB_SHA | cut -c1-7)" "${{ matrix.variant }}" \
+            > out/apps/hbc-rebrewed-${{ matrix.variant }}/meta.xml
           cp channel/channelapp/channelapp-channel.dol out/ || true
           cp channel/title/channel_retail.wad out/hbc-rebrewed-${{ matrix.variant }}.wad 2>/dev/null || true
           ls -lR out
