@@ -1,0 +1,8 @@
+name: list-devkitppc-tags
+on: [push]
+jobs:
+  tags:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -s "https://hub.docker.com/v2/repositories/devkitpro/devkitppc/tags?page_size=100" | python3 -c "import json,sys; [print(t['name'], t['last_updated']) for t in json.load(sys.stdin)['results']]"
